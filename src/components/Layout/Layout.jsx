@@ -4,18 +4,20 @@ import Loader from '../Loader/Loader';
 import { Container, Header, Link } from './Layout.styled';
 
 export const Layout = () => {
-  <Container>
-    <Header>
-      <nav>
-        <Link to="/" end>
-          Home
-        </Link>
-        <Link to="/movies">Movies</Link>
-      </nav>
-    </Header>
+  return (
+    <Container>
+      <Header>
+        <nav>
+          <Link to="/" end>
+            Home
+          </Link>
+          <Link to="/movies">Movies</Link>
+        </nav>
+      </Header>
 
-    <Suspense fallback={<Loader />}>
-      <Outlet />
-    </Suspense>
-  </Container>;
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
+    </Container>
+  );
 };
