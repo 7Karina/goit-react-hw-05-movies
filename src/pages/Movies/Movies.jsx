@@ -20,7 +20,7 @@ const Movies = () => {
       .catch(error => {
         console.log(error);
       })
-      .finnally(() => {
+      .finally(() => {
         setLoading(false);
       });
   };
