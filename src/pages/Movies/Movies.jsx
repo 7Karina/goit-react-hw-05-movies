@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import EditorList from '../../components/EditorList/EditorList';
@@ -13,22 +13,24 @@ const Movies = () => {
   // Отримуємо параметри пошуку з URL
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Оголошуємо функцію searchMovies, яка використовує параметри пошуку
-  const searchMovies = queryMovie => {
-    setLoading(true);
+  useEffect(() => {
+    const searchMovies = queryMovie => {
+      setLoading(true);
 
-    fetchSearchByKeyword(queryMovie)
-      .then(searchResults => {
-        setSearchFilms(searchResults);
-        setNoMoviesText(searchResults.length === 0);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+      fetchSearchByKeyword(queryMovie)
+        .then(searchResults => {
+          setSearchFilms(searchResults);
+          setNoMoviesText(searchResults.length === 0);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+    searchMovies();
+  }, []);
 
   // Отримуємо значення параметра "query" з URL
   const queryFromParams = searchParams.get('query') || '';
