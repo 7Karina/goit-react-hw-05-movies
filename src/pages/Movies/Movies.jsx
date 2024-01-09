@@ -14,7 +14,10 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const searchMovies = queryMovie => {
+    const queryMovie = searchParams.get('query');
+    if (!queryMovie) return;
+
+    const searchMovies = () => {
       setLoading(true);
 
       fetchSearchByKeyword(queryMovie)
@@ -29,17 +32,15 @@ const Movies = () => {
           setLoading(false);
         });
     };
-    searchMovies();
-  }, []);
+    searchMovies(searchParams);
+  }, [searchParams]);
 
   // Отримуємо значення параметра "query" з URL
   const queryFromParams = searchParams.get('query') || '';
 
   // Встановлюємо значення з параметрів у компонент Form
   const handleFormSubmit = query => {
-    searchParams.set('query', query);
-    setSearchParams(searchParams);
-    searchMovies(query);
+    setSearchParams({ query });
   };
 
   return (
